@@ -1,4 +1,4 @@
-FROM maven:3.6.3-jdk-8 as build
+FROM maven:3.8.5-eclipse-temurin-8 as build
 
 RUN apt-get install -y wget
 
@@ -8,7 +8,7 @@ COPY . .
 
 RUN mvn clean install
 
-FROM openjdk:11.0-jre
+FROM eclipse-temurin:17.0.3_7-jre-alpine
 
 ENV JAVA_OPTS "-Xmx1g -Xms1g"
 
