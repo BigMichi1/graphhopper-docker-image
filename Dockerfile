@@ -1,6 +1,4 @@
-FROM maven:3.8.5-eclipse-temurin-8 as build
-
-RUN apt-get install -y wget
+FROM maven:3.8.5-eclipse-temurin-8-alpine as build
 
 WORKDIR /graphhopper
 
