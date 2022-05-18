@@ -1,4 +1,4 @@
-FROM maven:3.6.3-jdk-8 as build
+FROM maven:3.6.3-jdk-14 as build
 
 RUN apt-get install -y wget
 
