@@ -1,6 +1,9 @@
 FROM maven:3.8.5-eclipse-temurin-8 as build
 
-RUN apt-get install -y wget
+RUN apt-get update \
+  && apt-get install --no-install-recommends -y \
+    wget=1.20.3-1ubuntu2 \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /graphhopper
 
