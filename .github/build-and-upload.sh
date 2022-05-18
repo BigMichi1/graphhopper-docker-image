@@ -4,8 +4,8 @@ echo "Cloning graphhopper"
 git clone https://github.com/graphhopper/graphhopper.git
 cd graphhopper
 echo "Downloading Dockerfile and graphhopper.sh"
-curl -L https://raw.githubusercontent.com/BigMichi1/graphhopper-docker-image-push/main/Dockerfile > Dockerfile
-curl -L https://raw.githubusercontent.com/BigMichi1/graphhopper-docker-image-push/main/graphhopper.sh > graphhopper.sh
+curl -L https://raw.githubusercontent.com/BigMichi1/graphhopper-docker-image/main/Dockerfile > Dockerfile
+curl -L https://raw.githubusercontent.com/BigMichi1/graphhopper-docker-image/main/graphhopper.sh > graphhopper.sh
 chmod +x ./graphhopper.sh
 echo "Building docker image"
 docker build . -t bigmichi1/graphhopper:latest
