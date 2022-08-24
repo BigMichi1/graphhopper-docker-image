@@ -1,4 +1,4 @@
-FROM maven:3.8.5-eclipse-temurin-8 as build
+FROM maven:3.8-eclipse-temurin-8 as build
 
 WORKDIR /graphhopper
 
@@ -6,7 +6,7 @@ COPY . .
 
 RUN mvn clean install
 
-FROM eclipse-temurin:17.0.3_7-jre-focal
+FROM eclipse-temurin:17-jre
 
 ENV JAVA_OPTS "-Xmx1g -Xms1g"
 
