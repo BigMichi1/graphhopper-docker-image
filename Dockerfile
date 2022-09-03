@@ -12,7 +12,7 @@ ENV JAVA_OPTS "-Xmx1g -Xms1g"
 
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
-    wget=1.20.3-1ubuntu2 \
+    wget \
   && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /data
