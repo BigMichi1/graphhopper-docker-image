@@ -6,7 +6,7 @@ COPY . .
 
 RUN mvn clean install
 
-FROM eclipse-temurin:18-jre
+FROM eclipse-temurin:19-jre
 
 ENV JAVA_OPTS "-Xmx1g -Xms1g"
 
