@@ -26,4 +26,4 @@ jobs:
         env:
           DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-        run: sh ./.github/build-and-upload.sh
+        run: ./.github/build-and-upload.sh
