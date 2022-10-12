@@ -8,7 +8,7 @@ set -o pipefail
 
 #set -x
 
-MIN_BUILD_VERSION="5.3"
+MIN_BUILD_VERSION="5.0"
 #MIN_BUILD_VERSION="master"
 IMAGE_NAME="bigmichi1/graphhopper"
 
