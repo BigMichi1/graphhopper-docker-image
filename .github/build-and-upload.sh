@@ -73,7 +73,7 @@ while read -r TAG; do
       OLD_COMMIT=""
     fi
 
-    if [ ! -z "$OLD_COMMIT" ] && [ "$OLD_COMMIT" != "$COMMIT" ]
+    if [ "$OLD_COMMIT" != "$COMMIT" ]
     then
       echo "Building new revision $COMMIT for $TAG"
       cp ../Dockerfile .
