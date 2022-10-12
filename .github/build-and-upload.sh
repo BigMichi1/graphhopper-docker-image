@@ -35,7 +35,7 @@ compare_version() {
 }
 
 echo "Preparing build environment"
-#mkdir build
+mkdir build
 cd build
 
 echo "Downloading Dockerfile and graphhopper.sh"
@@ -44,7 +44,7 @@ curl -L https://raw.githubusercontent.com/BigMichi1/graphhopper-docker-image/mai
 chmod +x ./graphhopper.sh
 
 echo "Cloning graphhopper"
-#git clone https://github.com/graphhopper/graphhopper.git
+git clone https://github.com/graphhopper/graphhopper.git
 cd graphhopper
 
 echo "Building docker images"
