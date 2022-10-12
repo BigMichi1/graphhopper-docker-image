@@ -8,6 +8,15 @@ RUN mvn clean install
 
 FROM eclipse-temurin:19-jre
 
+LABEL org.opencontainers.image.title='Graphhopper docker'
+LABEL org.opencontainers.image.description='GraphHopper is a fast and memory-efficient routing engine packed into a Docker image'
+LABEL org.opencontainers.image.authors='Michael Cramer <michael@bigmichi1.de>, Harel M'
+LABEL org.opencontainers.image.url='https://github.com/BigMichi1/graphhopper-docker-image'
+LABEL org.opencontainers.image.documentation='https://github.com/BigMichi1/graphhopper-docker-image'
+LABEL org.opencontainers.image.source='https://github.com/BigMichi1/graphhopper-docker-image'
+LABEL org.opencontainers.image.vendor='Michael Cramer'
+LABEL org.opencontainers.image.licenses='MIT'
+
 ENV JAVA_OPTS "-Xmx1g -Xms1g"
 
 RUN apt-get update \
