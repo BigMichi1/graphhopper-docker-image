@@ -57,7 +57,12 @@ while read -r TAG; do
     echo ""
     echo "Building docker image for version $TAG"
     git clean -f -d -x
-    git checkout -q "tags/$TAG"
+    if [ "$TAG" == "master" ]
+    then
+      git checkout -q "tags/$TAG"
+    else
+      git checkout -q master
+    fi
 
     if [ "$TAG" == "master" ]
     then
