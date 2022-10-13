@@ -56,9 +56,9 @@ while read -r TAG; do
     git clean -f -d -x
     if [ "$TAG" == "master" ]
     then
-      git checkout -q "tags/$TAG"
-    else
       git checkout -q master
+    else
+      git checkout -q "tags/$TAG"
     fi
 
     if [ "$TAG" == "master" ]
