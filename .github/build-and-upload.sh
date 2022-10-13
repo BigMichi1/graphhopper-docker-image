@@ -46,16 +46,18 @@ chmod +x ./graphhopper.sh
 echo "Cloning graphhopper"
 git clone https://github.com/graphhopper/graphhopper.git
 cd graphhopper
+git config advice.detachedHead false
 
 echo "Building docker images"
-TAGS=`git for-each-ref --sort=committerdate refs/tags | egrep '\/[[:digit:]]+\.[[:digit:]]+$' | cut -d "/" -f3`
+TAGS=`git for-each-ref --sort=committerdate refs/tags | egrep '\/[[:digit:]]+\.[[:digit:]]+(\.[[:digit:]])?$' | cut -d "/" -f3`
 TAGS=`echo -e "$TAGS\nmaster"`
 while read -r TAG; do
   if [ "$TAG" == "master" ] || ( compare_version "$TAG" "$MIN_BUILD_VERSION" );
   then
+    echo ""
     echo "Building docker image for version $TAG"
     git clean -f -d -x
-    git checkout $TAG
+    git checkout -q "tags/$TAG"
 
     if [ "$TAG" == "master" ]
     then
