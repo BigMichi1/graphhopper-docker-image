@@ -4,7 +4,7 @@ WORKDIR /graphhopper
 
 COPY . .
 
-RUN mvn clean install
+RUN mvn -B clean install
 
 FROM eclipse-temurin:19-jre
 
