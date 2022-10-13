@@ -6,10 +6,7 @@ set -o nounset
 # don't hide errors within pipes
 set -o pipefail
 
-#set -x
-
 MIN_BUILD_VERSION="5.0"
-#MIN_BUILD_VERSION="master"
 IMAGE_NAME="bigmichi1/graphhopper"
 
 compare_version() {
@@ -39,8 +36,8 @@ mkdir build
 cd build
 
 echo "Downloading Dockerfile and graphhopper.sh"
-curl -L https://raw.githubusercontent.com/BigMichi1/graphhopper-docker-image/main/Dockerfile > Dockerfile
-curl -L https://raw.githubusercontent.com/BigMichi1/graphhopper-docker-image/main/graphhopper.sh > graphhopper.sh
+curl -s -L https://raw.githubusercontent.com/BigMichi1/graphhopper-docker-image/main/Dockerfile > Dockerfile
+curl -s -L https://raw.githubusercontent.com/BigMichi1/graphhopper-docker-image/main/graphhopper.sh > graphhopper.sh
 chmod +x ./graphhopper.sh
 
 echo "Cloning graphhopper"
@@ -49,8 +46,8 @@ cd graphhopper
 git config advice.detachedHead false
 
 echo "Building docker images"
-TAGS=`git for-each-ref --sort=committerdate refs/tags | egrep '\/[[:digit:]]+\.[[:digit:]]+(\.[[:digit:]])?$' | cut -d "/" -f3`
-TAGS=`echo -e "$TAGS\nmaster"`
+TAGS=$(git for-each-ref --sort=committerdate refs/tags | grep -E '\/[[:digit:]]+\.[[:digit:]]+(\.[[:digit:]])?$' | cut -d "/" -f3)
+TAGS=$(echo -e "$TAGS\nmaster")
 while read -r TAG; do
   if [ "$TAG" == "master" ] || ( compare_version "$TAG" "$MIN_BUILD_VERSION" );
   then
@@ -72,10 +69,10 @@ while read -r TAG; do
     IMAGE_NAME_TAG="$IMAGE_NAME:$TAG"
 
     echo "Checking for new commits"
-    COMMIT=`git rev-parse --short HEAD`
+    COMMIT=$(git rev-parse --short HEAD)
     if docker pull $IMAGE_NAME_TAG >/dev/null 2>&1
     then
-      OLD_COMMIT=`docker inspect $IMAGE_NAME_TAG | jq -r ".[].Config.Labels.\"org.opencontainers.image.revision\""`
+      OLD_COMMIT=$(docker inspect $IMAGE_NAME_TAG | jq -r ".[].Config.Labels.\"org.opencontainers.image.revision\"")
     else
       OLD_COMMIT=""
     fi
@@ -87,13 +84,13 @@ while read -r TAG; do
       cp ../graphhopper.sh .
 
       docker build \
-        --label org.opencontainers.image.revision=${COMMIT} \
+        --label org.opencontainers.image.revision="${COMMIT}" \
         --label org.opencontainers.image.created="$(date --rfc-3339=seconds --utc)" \
-        --label org.opencontainers.image.version=${TAG} \
+        --label org.opencontainers.image.version="${TAG}" \
         . -t $IMAGE_NAME_TAG
 
       echo "Publishing docker image $IMAGE_NAME_TAG"
-      docker login --username $DOCKERHUB_USER --password $DOCKERHUB_TOKEN
+      docker login --username "$DOCKERHUB_USER" --password "$DOCKERHUB_TOKEN"
       docker push $IMAGE_NAME_TAG
     else
       echo "Skipping build for commit $COMMIT because it is the same as already published for image $IMAGE_NAME_TAG"
