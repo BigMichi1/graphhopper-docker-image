@@ -35,11 +35,6 @@ echo "Preparing build environment"
 mkdir build
 cd build
 
-echo "Downloading Dockerfile and graphhopper.sh"
-curl -s -L https://raw.githubusercontent.com/BigMichi1/graphhopper-docker-image/main/Dockerfile > Dockerfile
-curl -s -L https://raw.githubusercontent.com/BigMichi1/graphhopper-docker-image/main/graphhopper.sh > graphhopper.sh
-chmod +x ./graphhopper.sh
-
 echo "Cloning graphhopper"
 git clone https://github.com/graphhopper/graphhopper.git
 cd graphhopper
@@ -80,8 +75,9 @@ while read -r TAG; do
     if [ "$OLD_COMMIT" != "$COMMIT" ]
     then
       echo "Building new revision $COMMIT for $TAG"
-      cp ../Dockerfile .
-      cp ../graphhopper.sh .
+      cp ../../Dockerfile .
+      cp ../../graphhopper.sh .
+      chmod +x graphhopper.sh
 
       docker build \
         --label org.opencontainers.image.revision="${COMMIT}" \
