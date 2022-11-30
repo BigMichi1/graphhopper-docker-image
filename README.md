@@ -32,3 +32,5 @@ docker run --entrypoint /bin/bash bigmichi1/graphhopper -c "wget https://downloa
 ```
 
 Checkout `graphhopper.sh` for more usage options such as import.
+
+In order to build the docker image locally, please run [`.github/build.sh`](.github/build.sh).
