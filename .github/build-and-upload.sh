@@ -8,6 +8,7 @@ set -o pipefail
 
 MIN_BUILD_VERSION="5.0"
 IMAGE_NAME="bigmichi1/graphhopper"
+WORKING_DIR="graphhopper"
 
 compare_version() {
     if [[ $1 == $2 ]]; then
@@ -32,8 +33,9 @@ compare_version() {
 }
 
 echo "Cloning graphhopper"
+if [ -d "$WORKING_DIR" ]; then rm -Rf $WORKING_DIR; fi
 git clone https://github.com/graphhopper/graphhopper.git
-cd graphhopper
+cd "$WORKING_DIR"
 git config advice.detachedHead false
 
 echo "Building docker images"
@@ -82,7 +84,7 @@ while read -r TAG; do
       echo "Publishing docker image $IMAGE_NAME_TAG"
       docker login --username "$DOCKERHUB_USER" --password "$DOCKERHUB_TOKEN"
       docker push $IMAGE_NAME_TAG
-      cd graphhopper
+      cd "$WORKING_DIR"
     else
       echo "Skipping build for commit $COMMIT because it is the same as already published for image $IMAGE_NAME_TAG"
     fi
