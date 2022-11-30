@@ -31,10 +31,6 @@ compare_version() {
     return 1
 }
 
-echo "Preparing build environment"
-mkdir build
-cd build
-
 echo "Cloning graphhopper"
 git clone https://github.com/graphhopper/graphhopper.git
 cd graphhopper
@@ -75,10 +71,8 @@ while read -r TAG; do
     if [ "$OLD_COMMIT" != "$COMMIT" ]
     then
       echo "Building new revision $COMMIT for $TAG"
-      cp ../../Dockerfile .
-      cp ../../graphhopper.sh .
-      chmod +x graphhopper.sh
 
+      cd ..
       docker build \
         --label org.opencontainers.image.revision="${COMMIT}" \
         --label org.opencontainers.image.created="$(date --rfc-3339=seconds --utc)" \
@@ -88,6 +82,7 @@ while read -r TAG; do
       echo "Publishing docker image $IMAGE_NAME_TAG"
       docker login --username "$DOCKERHUB_USER" --password "$DOCKERHUB_TOKEN"
       docker push $IMAGE_NAME_TAG
+      cd graphhopper
     else
       echo "Skipping build for commit $COMMIT because it is the same as already published for image $IMAGE_NAME_TAG"
     fi
