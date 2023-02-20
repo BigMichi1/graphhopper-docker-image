@@ -1,4 +1,4 @@
-FROM maven:3.8-eclipse-temurin-19 as build
+FROM maven:3.9-eclipse-temurin-19 as build
 
 WORKDIR /graphhopper
 
