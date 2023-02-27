@@ -31,4 +31,4 @@ jobs:
           DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
           REBUILD_ALL: ${{ github.event.inputs.rebuild-all == 'true' }}
-        run: sh ./.github/build-and-upload-v2.sh
+        run: ./.github/build-and-upload-v2.sh
