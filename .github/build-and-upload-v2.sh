@@ -33,6 +33,13 @@ compare_version() {
 }
 
 echo "rebuilding all images: $REBUILD_ALL"
+
+if [ $REBUILD_ALL -eq "true"];
+then
+  echo "true"
+else
+  echo "false"
+fi
 exit 1
 
 echo "Cloning graphhopper"
