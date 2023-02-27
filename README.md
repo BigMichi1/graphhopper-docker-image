@@ -1,7 +1,7 @@
 # Graphhopper docker provider repository
 This repository holds the very basic things in order to make sure there's an updated graphhopper docker image which we use in our production server.
 Images can be found here:
-https://hub.docker.com/r/israelhikingmap/graphhopper
+https://hub.docker.com/r/bigmichi1/graphhopper
 
 I would like to first and foremost thank the [graphhopper](https://www.graphhopper.com/) team for their hard work and amazing product!
 They are doing a great job and we are truly happy to help by contributing to thier code base like we had done in the past.
@@ -22,13 +22,13 @@ JAVA_OPTS: "-Xmx1g -Xms1g"
 
 For a quick startup you can run the following command to create the andorra routing:
 ```
-docker run -p 8989:8989 israelhikingmap/graphhopper --url https://download.geofabrik.de/europe/andorra-latest.osm.pbf --host 0.0.0.0
+docker run -p 8989:8989 bigmichi1/graphhopper --url https://download.geofabrik.de/europe/andorra-latest.osm.pbf --host 0.0.0.0
 ```
 Then surf to `http://localhost:8989/`
 
 You can also completely override the entry point and use this for example:
 ```
-docker run --entrypoint /bin/bash israelhikingmap/graphhopper -c "wget https://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf -O /data/berlin.osm.pbf && java -Ddw.graphhopper.datareader.file=/data/berlin.osm.pbf -Ddw.graphhopper.graph.location=berlin-gh -jar *.jar server config-example.yml"
+docker run --entrypoint /bin/bash bigmichi1/graphhopper -c "wget https://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf -O /data/berlin.osm.pbf && java -Ddw.graphhopper.datareader.file=/data/berlin.osm.pbf -Ddw.graphhopper.graph.location=berlin-gh -jar *.jar server config-example.yml"
 ```
 
 Checkout `graphhopper.sh` for more usage options such as import.
