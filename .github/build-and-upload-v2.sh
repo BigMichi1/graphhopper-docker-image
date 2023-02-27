@@ -34,14 +34,6 @@ compare_version() {
 
 echo "rebuilding all images: $REBUILD_ALL"
 
-if [ "$REBUILD_ALL" == "true" ];
-then
-  echo "true"
-else
-  echo "false"
-fi
-exit 1
-
 echo "Cloning graphhopper"
 if [ -d "$WORKING_DIR" ]; then rm -Rf $WORKING_DIR; fi
 git clone https://github.com/graphhopper/graphhopper.git
@@ -73,11 +65,17 @@ while read -r TAG; do
 
     echo "Checking for new commits"
     COMMIT=$(git rev-parse --short HEAD)
-    if docker pull $IMAGE_NAME_TAG >/dev/null 2>&1
+
+    OLD_COMMIT=""
+    if [ "$REBUILD_ALL" == "true" ];
     then
-      OLD_COMMIT=$(docker inspect $IMAGE_NAME_TAG | jq -r ".[].Config.Labels.\"org.opencontainers.image.revision\"")
+      echo "Skipping commit check. Rebuilding image $IMAGE_NAME_TAG"
     else
-      OLD_COMMIT=""
+      if docker pull $IMAGE_NAME_TAG >/dev/null 2>&1
+      then
+        echo "Reading published commit from $IMAGE_NAME_TAG"
+        OLD_COMMIT=$(docker inspect $IMAGE_NAME_TAG | jq -r ".[].Config.Labels.\"org.opencontainers.image.revision\"")
+      fi
     fi
 
     if [ "$OLD_COMMIT" != "$COMMIT" ]
