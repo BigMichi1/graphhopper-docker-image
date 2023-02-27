@@ -34,7 +34,7 @@ compare_version() {
 
 echo "rebuilding all images: $REBUILD_ALL"
 
-if [ $REBUILD_ALL -eq "true"];
+if [ "$REBUILD_ALL" == "true" ];
 then
   echo "true"
 else
