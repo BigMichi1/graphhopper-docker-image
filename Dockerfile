@@ -6,7 +6,7 @@ COPY graphhopper .
 
 RUN mvn clean install
 
-FROM openjdk:11.0-jre
+FROM eclipse-temurin:17.0.6_10-jre-alpine
 
 ENV JAVA_OPTS "-Xmx1g -Xms1g"
 
