@@ -1,4 +1,4 @@
-FROM maven:3.8.6-jdk-8 as build
+FROM maven:3-jdk-9 as build
 
 WORKDIR /graphhopper
 
