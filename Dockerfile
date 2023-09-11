@@ -1,4 +1,4 @@
-FROM maven:3-jdk-9 as build
+FROM maven:3.9.4-eclipse-temurin-17 as build
 
 WORKDIR /graphhopper
 
@@ -6,7 +6,7 @@ COPY graphhopper .
 
 RUN mvn clean install
 
-FROM eclipse-temurin:19.0.2_7-jre-alpine
+FROM eclipse-temurin:17.0.8.1_1-jre-alpine
 
 ENV JAVA_OPTS "-Xmx1g -Xms1g"
 
