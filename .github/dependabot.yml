@@ -6,9 +6,17 @@ updates:
       interval: "daily"
     assignees:
       - "bigmichi1"
+    labels:
+      - "dependencies"
+      - "automerge"
+      - "github_actions"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "weekly"
     assignees:
       - "bigmichi1"
+    labels:
+      - "dependencies"
+      - "automerge"
+      - "docker"
