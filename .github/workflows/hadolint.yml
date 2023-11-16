@@ -29,8 +29,13 @@ jobs:
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
 
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0
+        with:
+          egress-policy: audit
+
       - name: Checkout code
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Run hadolint
         uses: hadolint/hadolint-action@54c9adbab1582c2ef04b2016b760714a4bfde3cf
@@ -41,7 +46,7 @@ jobs:
           no-fail: true
 
       - name: Upload analysis results to GitHub
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@689fdc5193eeb735ecb2e52e819e3382876f93f4 # v2.22.6
         with:
           sarif_file: hadolint-results.sarif
           wait-for-processing: true
